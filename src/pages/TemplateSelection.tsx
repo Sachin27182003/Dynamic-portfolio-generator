@@ -27,7 +27,7 @@ const TemplateSelection = () => {
       <div className="flex gap-10">
         <div
           onClick={() => selectTemplate(1)}
-          className="w-lg cursor-pointer border rounded-2xl shadow-2xl shadow-blue-400 bg-white hover:shadow-lg"
+          className="w-lg cursor-pointer border rounded-2xl shadow-2xl shadow-blue-200 bg-white hover:shadow-lg"
         >
           <div>
             <img
@@ -67,7 +67,7 @@ const TemplateSelection = () => {
         </div>
         <div
           onClick={() => selectTemplate(2)}
-          className="w-lg cursor-pointer border rounded-2xl shadow-2xl shadow-blue-400 bg-white hover:shadow-lg"
+          className="w-lg cursor-pointer border rounded-2xl shadow-2xl shadow-blue-200 bg-white hover:shadow-lg"
         >
           <div>
             <img

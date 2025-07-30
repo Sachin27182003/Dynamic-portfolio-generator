@@ -33,7 +33,7 @@ export interface PortfolioData {
   services: Service[];
   portfolio: Project[];
   testimonials: string[];
-  blog?: { title: string; summary?: string };
+  footer?: { title: string; summary?: string };
   contact: { message: string; email: string; phone: string };
 }
 
@@ -59,6 +59,6 @@ export interface FormData {
   portfolio: Product[];
   testimonials: string[];
   message: string;
-  blogTitle: string;
-  blogSummary: string;
+  footerMessage: string;
+  footerText: string;
 }

@@ -39,8 +39,8 @@ const isTabValid = (tab: string, data: FormData): boolean => {
     portfolio,
     testimonials,
     message,
-    blogTitle,
-    blogSummary,
+    footerMessage,
+    footerText,
   } = data;
 
   switch (tab) {
@@ -58,16 +58,16 @@ const isTabValid = (tab: string, data: FormData): boolean => {
     case "Services":
       return (
         services.length > 0 &&
-        services.every((s) => s.title.trim() !== "" && s.description.trim() !== "")
+        services.every((s) => s.title?.trim() !== "" && s.description?.trim() !== "")
       );
     case "Products":
       return (
         portfolio.length > 0 &&
         portfolio.every(
           (p) =>
-            p.title.trim() !== "" &&
-            p.image.trim() !== "" &&
-            p.description.trim() !== ""
+            p.title?.trim() !== "" &&
+            p.image?.trim() !== "" &&
+            p.description?.trim() !== ""
         )
       );
     case "Clients & Testimonials":
@@ -75,7 +75,7 @@ const isTabValid = (tab: string, data: FormData): boolean => {
     case "Contact":
       return email.trim() !== "" && phone.trim() !== "" && message.trim() !== "";
     case "Footer":
-      return blogTitle.trim() !== "" && blogSummary.trim() !== "";
+      return footerMessage.trim() !== "" && footerText.trim() !== "";
     default:
       return false;
   }
@@ -100,8 +100,8 @@ const PortfolioForm = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [portfolio, setPortfolio] = useState<Project[]>([]);
   const [testimonials, setTestimonials] = useState<string[]>([]);
-  const [blogTitle, setBlogTitle] = useState("");
-  const [blogSummary, setBlogSummary] = useState("");
+  const [footerMessage, setFooterMessage] = useState("");
+  const [footerText, setFooterText] = useState("");
   const [message, setMessage] = useState("");
 
   const formData: FormData = {
@@ -118,8 +118,8 @@ const PortfolioForm = () => {
     portfolio,
     testimonials,
     message,
-    blogTitle,
-    blogSummary,
+    footerMessage,
+    footerText,
   };
 
   const handleNext = () => {
@@ -146,7 +146,7 @@ const PortfolioForm = () => {
       services,
       portfolio,
       testimonials,
-      blog: { title: blogTitle, summary: blogSummary },
+      footer: { title: footerMessage, summary: footerText },
       contact: { message, email, phone },
     };
 
@@ -177,8 +177,8 @@ const PortfolioForm = () => {
         setServices(existing.services);
         setPortfolio(existing.portfolio);
         setTestimonials(existing.testimonials);
-        setBlogTitle(existing.blog?.title || "");
-        setBlogSummary(existing.blog?.summary || "");
+        setFooterMessage(existing.footer?.title || "");
+        setFooterText(existing.footer?.summary || "");
         setMessage(existing.contact.message);
       }
     }
@@ -207,13 +207,7 @@ const PortfolioForm = () => {
       <div className="bg-white p-6 rounded-lg shadow space-y-4">
         {activeTab === "Basic Details" && (
           <div>
-            <h2 className="text-xl font-bold mb-4">Basic Company Details</h2>
-            <input
-              required
-              type="text"
-              placeholder="Your company name (used in URL)"
-              className="w-full p-2 border rounded text-sm mb-4"
-            />
+            <h2 className="text-xl font-bold mb-4">Basic Details</h2>
             <label className="block text-sm font-medium mb-1">Your Name</label>
             <input
               type="text"
@@ -245,7 +239,7 @@ const PortfolioForm = () => {
             />
             <button
               onClick={handleNext}
-              className={`mt-4 px-4 py-2 rounded text-white ${
+              className={` px-4 py-2 rounded mt-8 text-white ${     
                 isTabValid(activeTab, formData)
                   ? "bg-blue-600 hover:bg-blue-700"
                   : "bg-gray-400 cursor-not-allowed"
@@ -483,24 +477,24 @@ const PortfolioForm = () => {
         )}
         {activeTab === "Footer" && (
           <div>
-            <h2 className="text-xl font-bold mb-4">Blog / Footer</h2>
-            <label className="block text-sm font-medium mb-1">Blog Title</label>
+            <h2 className="text-xl font-bold mb-4">Footer</h2>
+            <label className="block text-sm font-medium mb-1">Copyright message</label>
             <input
               type="text"
-              value={blogTitle}
+              value={footerMessage}
               required
-              onChange={(e) => setBlogTitle(e.target.value)}
-              placeholder="The Future of Frontend"
+              onChange={(e) => setFooterMessage(e.target.value)}
+              placeholder="© 2025 example name. All rights reserved."
               className="w-full p-2 border rounded text-sm"
             />
             <label className="block text-sm font-medium mt-4 mb-1">
-              Blog Summary
+              Text
             </label>
             <textarea
-              value={blogSummary}
+              value={footerText}
               required
-              onChange={(e) => setBlogSummary(e.target.value)}
-              placeholder="A quick overview of upcoming frontend tech..."
+              onChange={(e) => setFooterText(e.target.value)}
+              placeholder="Thank you for visiting my portfolio!"
               className="w-full p-2 border rounded text-sm"
             />
           </div>
